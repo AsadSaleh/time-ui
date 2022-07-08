@@ -15,7 +15,7 @@ export default function useFetchTimezone(location: string) {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [location]);
 
   // Calculate offset:
   const offsetFromUtc = Number(timeData?.utc_offset?.split(":")[0] ?? "0");
