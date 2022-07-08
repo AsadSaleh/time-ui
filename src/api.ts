@@ -1,4 +1,4 @@
-import { TimezoneTime } from "./model";
+import { TimezoneTime } from "./model/timezoneTime";
 
 interface ApiConfig {
   controller?: AbortController;

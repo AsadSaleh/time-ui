@@ -1,7 +1,7 @@
 import { uniqueId } from "lodash";
 import { useState } from "react";
-import CityTimeCard from "./shared/components/CityTimeCard";
-import CurrentCityCard from "./shared/components/CurrentCity";
+import CityTimeCard from "./components/CityTimeCard";
+import CurrentCityCard from "./components/CurrentCity";
 
 interface ClockDisplayProps {
   id: string;

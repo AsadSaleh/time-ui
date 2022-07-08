@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getTimezoneTime } from "../../api";
-import { TimezoneTime } from "../../model";
+import { getTimezoneTime } from "../api";
+import { TimezoneTime } from "../model/timezoneTime";
 
 export default function useFetchTimezone(location: string) {
   const [timeData, setTimeData] = useState<TimezoneTime | null>(null);

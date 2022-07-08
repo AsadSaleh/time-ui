@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTimezoneTime } from "../../api";
+import { getTimezoneTime } from "../api";
 
 export default function CurrentCityCard() {
   const [clock, setClock] = useState(new Date());
