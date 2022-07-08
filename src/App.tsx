@@ -1,5 +1,5 @@
 import { uniqueId } from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CityTimeCard from "./components/CityTimeCard";
 import CurrentCityCard from "./components/CurrentCity";
 
@@ -10,7 +10,15 @@ interface ClockDisplayProps {
 }
 
 function App() {
-  const [cities, setCities] = useState<ClockDisplayProps[]>([]);
+  const [cities, setCities] = useState<ClockDisplayProps[]>(() => {
+    const cities = JSON.parse(localStorage.getItem("cities") ?? "[]");
+    return cities;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cities", JSON.stringify(cities));
+  }, [cities]);
+
   return (
     <div className="p-4 flex flex-col justify-center">
       <CurrentCityCard />
