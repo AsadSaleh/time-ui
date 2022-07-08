@@ -17,27 +17,13 @@ export default function useFetchTimezone(location: string) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   // set timer
-  //   const intervalId = setInterval(() => {
-  //     // function to increment clock
-  //     setClock(new Date());
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, []);
-
   // Calculate offset:
   const offsetFromUtc = Number(timeData?.utc_offset?.split(":")[0] ?? "0");
   const offsetFromCurrentTimezone = offsetFromUtc - 7;
 
-  // print clock:
-  console.log("datetime? ", timeData?.datetime);
-
   return {
     isLoading: !!timeData,
-    clock: new Date(timeData?.datetime ?? ""),
+    clock: timeData?.datetime ? new Date(timeData?.datetime) : null,
     abbreviation: timeData?.abbreviation,
     offsetFromUtc,
     offsetFromCurrentTimezone,
