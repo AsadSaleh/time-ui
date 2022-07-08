@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { uniqueId } from "lodash";
+import { useState } from "react";
 import CityTimeCard from "./shared/components/CityTimeCard";
 import CurrentCityCard from "./shared/components/CurrentCity";
-import { uniqueId } from "lodash";
 
 interface ClockDisplayProps {
   id: string;
@@ -104,6 +104,7 @@ function AddCityForm({
             {Object.keys(ALLOWED_CITIES_MAP).map((key) => {
               return (
                 <option
+                  key={key}
                   value={
                     ALLOWED_CITIES_MAP[key as keyof typeof ALLOWED_CITIES_MAP]
                   }
