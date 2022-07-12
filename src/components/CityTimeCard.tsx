@@ -12,13 +12,13 @@ export default function CityTimeCard(props: CityTimeCardProps) {
   const { clock, abbreviation, offsetFromCurrentTimezone, city } =
     useFetchTimezone(props.location);
 
-  let text = "";
+  let offsetText = "";
   if (offsetFromCurrentTimezone === 0) {
-    text = "The same with Jakarta";
+    offsetText = "The same with Jakarta";
   } else if (offsetFromCurrentTimezone > 0) {
-    text = `${offsetFromCurrentTimezone} hours ahead Jakarta`;
+    offsetText = `${offsetFromCurrentTimezone} hours ahead Jakarta`;
   } else {
-    text = `${Math.abs(offsetFromCurrentTimezone)} hours behind Jakarta`;
+    offsetText = `${Math.abs(offsetFromCurrentTimezone)} hours behind Jakarta`;
   }
 
   // Format city name before display:
@@ -40,7 +40,7 @@ export default function CityTimeCard(props: CityTimeCardProps) {
       {clock && <TickingClock initialDate={clock} timezone={props.location} />}
 
       <p className="font-thin">Timezone: {abbreviation}</p>
-      <p className="text-center mt-4">{text}</p>
+      <p className="text-center mt-4 text-black/60">{offsetText}</p>
     </div>
   );
 }
