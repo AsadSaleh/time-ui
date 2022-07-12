@@ -20,6 +20,12 @@ export default function CityTimeCard(props: CityTimeCardProps) {
   } else {
     text = `${Math.abs(offsetFromCurrentTimezone)} hours behind Jakarta`;
   }
+
+  // Format city name before display:
+  let formattedCity = city;
+  if (city?.includes("_")) {
+    formattedCity = city.split("_").join(" ");
+  }
   return (
     <div className="group bg-stone-300 rounded-xl flex flex-col justify-center items-center py-6 relative">
       <div
@@ -28,7 +34,7 @@ export default function CityTimeCard(props: CityTimeCardProps) {
       >
         <TrashIcon className="text-red-200" />
       </div>
-      <h4 className="text-3xl">{city}</h4>
+      <h4 className="text-3xl">{formattedCity}</h4>
       <p className="text-lg italic">{props.label ?? "-"}</p>
 
       {clock && <TickingClock initialDate={clock} timezone={props.location} />}
