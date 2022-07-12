@@ -20,7 +20,7 @@ function App() {
   }, [cities]);
 
   return (
-    <div className="p-4 flex flex-col justify-center">
+    <div className="p-4 flex flex-col justify-center bg-macos-monterey bg-cover h-screen w-full">
       <CurrentCityCard />
       <div className="grid mt-14 grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-4 lg:gap-4 place-content-center">
         {cities.map((city) => (
