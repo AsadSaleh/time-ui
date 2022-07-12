@@ -22,27 +22,37 @@ function App() {
   return (
     <div className="p-4 flex flex-col justify-center bg-macos-monterey bg-cover h-screen w-full">
       <CurrentCityCard />
-      <div className="grid mt-14 grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-4 lg:gap-4 place-content-center">
-        {cities.map((city) => (
-          <CityTimeCard
-            key={city.id}
-            location={city.location}
-            label={city.label}
-            onDelete={() =>
-              setCities((prevCities) =>
-                prevCities.filter((pCity) => pCity.id !== city.id)
-              )
-            }
-          />
-        ))}
-        {cities.length < 4 && (
+      {cities.length === 0 ? (
+        <div className="grid mt-14 grid-cols-1 gap-2 place-content-center">
           <AddCityCard
             onSubmit={(v) => {
               setCities((prevCities) => prevCities.concat(v));
             }}
           />
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="grid mt-14 grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-4 lg:gap-4 place-content-center">
+          {cities.map((city) => (
+            <CityTimeCard
+              key={city.id}
+              location={city.location}
+              label={city.label}
+              onDelete={() =>
+                setCities((prevCities) =>
+                  prevCities.filter((pCity) => pCity.id !== city.id)
+                )
+              }
+            />
+          ))}
+          {cities.length < 4 && (
+            <AddCityCard
+              onSubmit={(v) => {
+                setCities((prevCities) => prevCities.concat(v));
+              }}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }
