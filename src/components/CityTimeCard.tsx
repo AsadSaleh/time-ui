@@ -30,7 +30,7 @@ export default function CityTimeCard(props: CityTimeCardProps) {
     <div className="group bg-stone-300 rounded-xl flex flex-col justify-center items-center py-6 relative bg-white/40 backdrop-blur">
       <div
         onClick={() => props.onDelete?.()}
-        className="bg-stone-700 group-hover:block absolute hidden right-2 top-2 cursor-pointer p-1 rounded-xl"
+        className="bg-stone-100/40 hover:bg-stone-100 transition-all ease-in-out group-hover:block absolute hidden right-2 top-2 cursor-pointer p-1 rounded-lg"
       >
         <TrashIcon className="text-red-200" />
       </div>
