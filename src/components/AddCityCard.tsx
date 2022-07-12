@@ -35,7 +35,7 @@ export default function AddCityCard({
   return (
     <div
       onClick={() => setFormMode(true)}
-      className="bg-stone-200/40 hover:bg-stone-200/80 transition-all ease-in-out backdrop-blur py-4 rounded-xl flex flex-col justify-center items-center border-stone-100 border-2 border-solid cursor-pointer"
+      className="bg-stone-200/40 hover:bg-stone-200/80 py-10 transition-all ease-in-out backdrop-blur rounded-xl flex flex-col justify-center items-center border-stone-100 border-2 border-solid cursor-pointer"
     >
       <p className="text-3xl leading-3 ">+</p>
       <div className="h-2" />
@@ -52,7 +52,7 @@ function AddCityForm({
   onSubmit: (v: ClockDisplay) => void;
 }) {
   return (
-    <div className="bg-stone-200 py-4 rounded-xl flex flex-col justify-center items-center hover:border-stone-700 border-2 border-solid">
+    <div className="bg-stone-200 py-4 rounded-xl flex flex-col justify-center items-center border-2 border-solid">
       <form
         className="w-5/6"
         onSubmit={(e) => {
