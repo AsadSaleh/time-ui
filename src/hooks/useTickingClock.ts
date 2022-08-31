@@ -6,7 +6,7 @@ export default function useTickingClock(initialDate: Date) {
   // console.log(clock);
 
   function createPlusOneSecondDate(currDate: Date) {
-    console.log("createplusone");
+    // console.log("createplusone");
     return new Date(currDate.setTime(currDate.getTime() + 1000));
   }
 
