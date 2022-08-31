@@ -3,14 +3,16 @@ import { useState } from "react";
 import { ClockDisplay } from "../model/clockDisplay";
 
 const ALLOWED_CITIES_MAP = {
+  Jakarta: "Asia/Jakarta",
   Singapore: "Asia/Singapore",
   Tokyo: "Asia/Tokyo",
   Seoul: "Asia/Seoul",
-  Melbourne: "Australia/Melbourne",
-  Sydney: "Australia/Sydney",
+  Amsterdam: "Europe/Amsterdam",
   London: "Europe/London",
   Paris: "Europe/Paris",
   Berlin: "Europe/Berlin",
+  Melbourne: "Australia/Melbourne",
+  Sydney: "Australia/Sydney",
   "New York": "America/New_York",
   "Los Angeles": "America/Los_Angeles",
 };
