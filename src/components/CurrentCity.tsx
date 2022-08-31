@@ -27,8 +27,8 @@ export default function CurrentCityCard() {
 
   return (
     <div className="flex flex-col items-center bg-white/40 rounded-xl py-10 backdrop-blur">
-      <div className="text-7xl">Jakarta</div>
-      <p className="text-8xl font-mono italic">
+      <div className="text-2xl md:text-7xl">Jakarta</div>
+      <p className="text-3xl md:text-8xl font-mono italic">
         {clock.toLocaleTimeString("en-US", {
           timeZone: "Asia/Jakarta",
           hour12: false,

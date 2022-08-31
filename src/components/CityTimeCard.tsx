@@ -56,7 +56,7 @@ function TickingClock({
   const clock = useTickingClock(initialDate);
 
   return (
-    <p className="text-6xl mt-4 font-mono italic">
+    <p className="text-2xl md:text-3xl lg:text-4xl xl:text-6xl mt-4 font-mono italic">
       {clock.toLocaleTimeString("en-US", {
         timeZone: timezone,
         hour12: false,
