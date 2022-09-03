@@ -1,5 +1,5 @@
-import { uniqueId } from "lodash";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { ClockDisplay } from "../model/clockDisplay";
 
 const ALLOWED_CITIES_MAP = {
@@ -65,7 +65,7 @@ function AddCityForm({
             location: string;
           };
           onSubmit({
-            id: uniqueId().toString(),
+            id: uuidv4(),
             ...formObj,
           });
         }}
@@ -76,9 +76,8 @@ function AddCityForm({
             name="location"
             required
             className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-         focus:outline-none focus:border-stone-500 focus:ring-1 focus:ring-stone-600
-         disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-       "
+          focus:outline-none focus:border-stone-500 focus:ring-1 focus:ring-stone-600
+        disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
           >
             <option value={""}>Choose a city</option>
             {Object.keys(ALLOWED_CITIES_MAP).map((key) => {

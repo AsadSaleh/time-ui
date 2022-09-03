@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AddCityCard from "./components/AddCityCard";
 import CityTimeCard from "./components/CityTimeCard";
 import CurrentCityCard from "./components/CurrentCity";
+import useGlobalClock from "./hooks/useGlobalClock";
+
+import useStoredState from "./hooks/useStoredState";
 
 interface ClockDisplayProps {
   id: string;
@@ -10,17 +13,22 @@ interface ClockDisplayProps {
 }
 
 function App() {
-  const [cities, setCities] = useState<ClockDisplayProps[]>(() => {
-    const cities = JSON.parse(localStorage.getItem("cities") ?? "[]");
-    return cities;
+  const [cities, setCities] = useStoredState<ClockDisplayProps[]>([]);
+
+  const increase = useGlobalClock((state) => state.increase);
+
+  // Setup timer for global clock
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      increase();
+    }, 1000);
+    return () => {
+      clearInterval(timerId);
+    };
   });
 
-  useEffect(() => {
-    localStorage.setItem("cities", JSON.stringify(cities));
-  }, [cities]);
-
   return (
-    <div className="p-4 flex flex-col justify-center bg-macos-monterey bg-cover h-screen w-full">
+    <div className="bg-macos-monterey bg-cover min-h-screen p-4">
       <CurrentCityCard />
       {cities.length === 0 ? (
         <div className="grid mt-14 grid-cols-1 gap-2 place-content-center">
@@ -44,13 +52,11 @@ function App() {
               }
             />
           ))}
-          {cities.length < 4 && (
-            <AddCityCard
-              onSubmit={(v) => {
-                setCities((prevCities) => prevCities.concat(v));
-              }}
-            />
-          )}
+          <AddCityCard
+            onSubmit={(v) => {
+              setCities((prevCities) => prevCities.concat(v));
+            }}
+          />
         </div>
       )}
     </div>

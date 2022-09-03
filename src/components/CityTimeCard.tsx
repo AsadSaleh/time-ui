@@ -1,5 +1,5 @@
 import useFetchTimezone from "../hooks/useFetchTimezone";
-import useTickingClock from "../hooks/useTickingClock";
+import useGlobalClock from "../hooks/useGlobalClock";
 import TrashIcon from "../icons/Trash";
 
 interface CityTimeCardProps {
@@ -37,7 +37,7 @@ export default function CityTimeCard(props: CityTimeCardProps) {
       <h4 className="text-3xl">{formattedCity}</h4>
       <p className="text-lg italic">{props.label ?? "-"}</p>
 
-      {clock && <TickingClock initialDate={clock} timezone={props.location} />}
+      {clock && <TickingClock timezone={props.location} />}
 
       <p className="font-thin">Timezone: {abbreviation}</p>
       <p className="text-center mt-4 text-black/60">{offsetText}</p>
@@ -46,18 +46,14 @@ export default function CityTimeCard(props: CityTimeCardProps) {
 }
 
 // Inner component to render the ticking clock
-function TickingClock({
-  initialDate,
-  timezone,
-}: {
-  initialDate: Date;
-  timezone: string;
-}) {
-  const clock = useTickingClock(initialDate);
+function TickingClock({ timezone }: { timezone: string }) {
+  useGlobalClock((state) => state.count);
+
+  const date = new Date();
 
   return (
     <p className="text-2xl md:text-3xl lg:text-4xl xl:text-6xl mt-4 font-mono italic">
-      {clock.toLocaleTimeString("en-US", {
+      {date.toLocaleTimeString("en-US", {
         timeZone: timezone,
         hour12: false,
       })}

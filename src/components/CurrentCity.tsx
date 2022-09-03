@@ -1,29 +1,9 @@
-import { useEffect, useState } from "react";
-import { getTimezoneTime } from "../api";
+import useGlobalClock from "../hooks/useGlobalClock";
 
 export default function CurrentCityCard() {
-  const [clock, setClock] = useState(new Date());
+  useGlobalClock((state) => state.count);
 
-  useEffect(() => {
-    let controller = new AbortController();
-
-    getTimezoneTime("Asia/Jakarta", { controller })
-      .then((res) => setClock(new Date(res.datetime)))
-      .catch((err) => console.error(err));
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setClock(new Date());
-    }, 1000);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
+  const clock = new Date();
 
   return (
     <div className="flex flex-col items-center bg-white/40 rounded-xl py-10 backdrop-blur">
