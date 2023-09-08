@@ -17,9 +17,11 @@ export default function useFetchTimezone(location: string) {
     };
   }, [location]);
 
+  const usersTimezoneUtcOffset = new Date().getTimezoneOffset() / -60;
+
   // Calculate offset:
   const offsetFromUtc = Number(timeData?.utc_offset?.split(":")[0] ?? "0");
-  const offsetFromCurrentTimezone = offsetFromUtc - 7;
+  const offsetFromCurrentTimezone = offsetFromUtc - usersTimezoneUtcOffset;
 
   return {
     isLoading: !!timeData,

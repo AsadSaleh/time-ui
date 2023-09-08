@@ -5,16 +5,18 @@ export default function CurrentCityCard() {
 
   const clock = new Date();
 
+  const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+  const city = timeZone.split("/")[1];
+
   return (
-    <div className="flex flex-col items-center bg-white/40 rounded-xl py-10 backdrop-blur">
-      <div className="text-2xl md:text-7xl">Jakarta</div>
+    <div className="flex flex-col items-center bg-white/40 rounded-xl py-8 backdrop-blur">
+      <div className="text-2xl md:text-7xl">{city}</div>
       <p className="text-3xl md:text-8xl font-mono italic">
         {clock.toLocaleTimeString("en-US", {
-          timeZone: "Asia/Jakarta",
           hour12: false,
         })}
       </p>
-      <p className="font-thin text-lg">Timezone: GMT+7</p>
+      <p className="font-thin text-lg">Timezone: {timeZone}</p>
     </div>
   );
 }

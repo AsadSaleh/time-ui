@@ -14,11 +14,11 @@ export default function CityTimeCard(props: CityTimeCardProps) {
 
   let offsetText = "";
   if (offsetFromCurrentTimezone === 0) {
-    offsetText = "The same with Jakarta";
+    offsetText = "The same with you";
   } else if (offsetFromCurrentTimezone > 0) {
-    offsetText = `${offsetFromCurrentTimezone} hours ahead Jakarta`;
+    offsetText = `${offsetFromCurrentTimezone} hours ahead you`;
   } else {
-    offsetText = `${Math.abs(offsetFromCurrentTimezone)} hours behind Jakarta`;
+    offsetText = `${Math.abs(offsetFromCurrentTimezone)} hours behind you`;
   }
 
   // Format city name before display:
@@ -55,7 +55,7 @@ function TickingClock({ timezone }: { timezone: string }) {
     <p className="text-2xl md:text-3xl lg:text-4xl xl:text-6xl mt-4 font-mono italic">
       {date.toLocaleTimeString("en-US", {
         timeZone: timezone,
-        hour12: false,
+        hour12: true,
       })}
     </p>
   );
