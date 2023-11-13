@@ -1,6 +1,8 @@
-import useFetchTimezone from "../hooks/useFetchTimezone";
+import { useQuery } from "@tanstack/react-query";
 import useGlobalClock from "../hooks/useGlobalClock";
 import TrashIcon from "../icons/Trash";
+import { getTimezoneTime } from "../api";
+import { fromUnderscoreToPascal, getCityFromTzName } from "../helper";
 
 interface CityTimeCardProps {
   location: string;
@@ -9,9 +11,20 @@ interface CityTimeCardProps {
 }
 
 export default function CityTimeCard(props: CityTimeCardProps) {
-  const { clock, abbreviation, offsetFromCurrentTimezone, city } =
-    useFetchTimezone(props.location);
+  const { location } = props;
 
+  const timeQuery = useQuery({
+    queryKey: ["time", "detail", location],
+    queryFn: () => getTimezoneTime(location),
+  });
+
+  const timeData = timeQuery.data?.data ?? null;
+
+  const usersTimezoneUtcOffset = new Date().getTimezoneOffset() / -60;
+
+  // Calculate offset.
+  const offsetFromUtc = Number(timeData?.utc_offset?.split(":")[0] ?? "0");
+  const offsetFromCurrentTimezone = offsetFromUtc - usersTimezoneUtcOffset;
   let offsetText = "";
   if (offsetFromCurrentTimezone === 0) {
     offsetText = "The same with you";
@@ -21,11 +34,14 @@ export default function CityTimeCard(props: CityTimeCardProps) {
     offsetText = `${Math.abs(offsetFromCurrentTimezone)} hours behind you`;
   }
 
+  // Calculate derived values.
+  const clock = timeData?.datetime ? new Date(timeData?.datetime) : null;
+  const abbreviation = timeData?.abbreviation;
+  const city = timeData?.timezone ? getCityFromTzName(timeData.timezone) : "";
+
   // Format city name before display:
-  let formattedCity = city;
-  if (city?.includes("_")) {
-    formattedCity = city.split("_").join(" ");
-  }
+  const formattedCity = fromUnderscoreToPascal(city);
+
   return (
     <div className="group bg-stone-300 rounded-xl flex flex-col justify-center items-center py-6 relative bg-white/40 backdrop-blur">
       <div
@@ -45,8 +61,9 @@ export default function CityTimeCard(props: CityTimeCardProps) {
   );
 }
 
-// Inner component to render the ticking clock
+// Inner component to render the ticking clock.
 function TickingClock({ timezone }: { timezone: string }) {
+  // Connect with GlobalClock to get the ticking effect.
   useGlobalClock((state) => state.count);
 
   const date = new Date();

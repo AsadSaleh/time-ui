@@ -1,21 +1,9 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ClockDisplay } from "../model/clockDisplay";
-
-const ALLOWED_CITIES_MAP = {
-  Jakarta: "Asia/Jakarta",
-  Singapore: "Asia/Singapore",
-  Tokyo: "Asia/Tokyo",
-  Seoul: "Asia/Seoul",
-  Amsterdam: "Europe/Amsterdam",
-  London: "Europe/London",
-  Paris: "Europe/Paris",
-  Berlin: "Europe/Berlin",
-  Melbourne: "Australia/Melbourne",
-  Sydney: "Australia/Sydney",
-  "New York": "America/New_York",
-  "Los Angeles": "America/Los_Angeles",
-};
+import { useQuery } from "@tanstack/react-query";
+import { getTimezones } from "../api";
+import { getCityFromTzName } from "../helper";
 
 export default function AddCityCard({
   onSubmit,
@@ -53,6 +41,11 @@ function AddCityForm({
   onCancel: () => void;
   onSubmit: (v: ClockDisplay) => void;
 }) {
+  const timezonesQuery = useQuery({
+    queryKey: ["time", "all"],
+    queryFn: () => getTimezones(),
+  });
+
   return (
     <div className="bg-stone-200/80 py-4 rounded-xl flex flex-col justify-center items-center border-2 border-solid">
       <form
@@ -80,15 +73,10 @@ function AddCityForm({
         disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
           >
             <option value={""}>Choose a city</option>
-            {Object.keys(ALLOWED_CITIES_MAP).map((key) => {
+            {timezonesQuery.data?.data?.map((key) => {
               return (
-                <option
-                  key={key}
-                  value={
-                    ALLOWED_CITIES_MAP[key as keyof typeof ALLOWED_CITIES_MAP]
-                  }
-                >
-                  {key}
+                <option key={key} value={key}>
+                  {getCityFromTzName(key)}
                 </option>
               );
             })}
@@ -99,7 +87,7 @@ function AddCityForm({
             type="text"
             name="label"
             maxLength={20}
-            placeholder="Add a label"
+            placeholder="Add a label (optional)"
             className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
       focus:outline-none focus:border-stone-500 focus:ring-1 focus:ring-stone-600
       disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none

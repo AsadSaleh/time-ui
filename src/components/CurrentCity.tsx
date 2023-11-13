@@ -1,3 +1,4 @@
+import { getCityFromTzName } from "../helper";
 import useGlobalClock from "../hooks/useGlobalClock";
 
 export default function CurrentCityCard() {
@@ -6,7 +7,7 @@ export default function CurrentCityCard() {
   const clock = new Date();
 
   const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
-  const city = timeZone.split("/")[1];
+  const city = getCityFromTzName(timeZone);
 
   return (
     <div className="flex flex-col items-center bg-white/40 rounded-xl py-8 backdrop-blur">

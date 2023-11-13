@@ -1,42 +1,40 @@
 import { TimezoneTime } from "./model/timezoneTime";
 
-interface ApiConfig {
-  controller?: AbortController;
+type ErrorResponse = {
+  error: string;
+  data: null;
+};
+type DataResponse<T> = {
+  error: null;
+  data: T;
+};
+
+/**
+ * Fetch all of available timezones.
+ * Example: ["Africa/Abidjan","Africa/Algiers,...]
+ */
+export async function getTimezones(): Promise<
+  ErrorResponse | DataResponse<string[]>
+> {
+  const res = await fetch("https://worldtimeapi.org/api/timezone");
+  if (!res.ok) {
+    return { error: "Failed to fetch", data: null };
+  }
+  const json = await res.json();
+  console.log("ASAD TEST: ", Array.isArray(json));
+  return { error: null, data: json };
 }
 
-// export async function getTimezones(): Promise<String[]> {
-//   try {
-//     const res = await fetch("https://worldtimeapi.org/api").then((r) => {
-//       if (!r.ok) {
-//         throw new Error(r.statusText);
-//       }
-//       return r.json() as Promise<String[]>;
-//     });
-//     console.log({ res });
-//     return res;
-//   } catch (error) {
-//     console.log("error? ", error);
-//     throw error;
-//   }
-// }
-
+/**
+ * Fetch the "time" detail of a single timezone.
+ */
 export async function getTimezoneTime(
-  path: string,
-  config?: ApiConfig
-): Promise<TimezoneTime> {
-  try {
-    const res = await fetch(`https://worldtimeapi.org/api/timezone/${path}`, {
-      signal: config?.controller?.signal,
-    }).then((r) => {
-      if (!r.ok) {
-        throw new Error(r.statusText);
-      }
-      return r.json() as Promise<TimezoneTime>;
-    });
-    console.log({ res });
-    return res;
-  } catch (error) {
-    console.log({ error });
-    throw error;
+  timezone: string
+): Promise<ErrorResponse | DataResponse<TimezoneTime>> {
+  const res = await fetch(`https://worldtimeapi.org/api/timezone/${timezone}`);
+  if (!res.ok) {
+    return { error: "Failed to fetch", data: null };
   }
+  const json = await res.json();
+  return { error: null, data: json };
 }
