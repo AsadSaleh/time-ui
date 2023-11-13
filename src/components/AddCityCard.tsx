@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ClockDisplay } from "../model/clockDisplay";
 import { useQuery } from "@tanstack/react-query";
 import { getTimezones } from "../api";
-import { getCityFromTzName } from "../helper";
+import { getFormattedTzName } from "../helper";
 
 export default function AddCityCard({
   onSubmit,
@@ -76,7 +76,7 @@ function AddCityForm({
             {timezonesQuery.data?.data?.map((key) => {
               return (
                 <option key={key} value={key}>
-                  {getCityFromTzName(key)}
+                  {getFormattedTzName(key)}
                 </option>
               );
             })}
