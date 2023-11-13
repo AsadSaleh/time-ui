@@ -29,7 +29,7 @@ export default function CityTimeCard(props: CityTimeCardProps) {
   if (offsetFromCurrentTimezone === 0) {
     offsetText = "The same with you";
   } else if (offsetFromCurrentTimezone > 0) {
-    offsetText = `${offsetFromCurrentTimezone} hours ahead you`;
+    offsetText = `${offsetFromCurrentTimezone} hours ahead of you`;
   } else {
     offsetText = `${Math.abs(offsetFromCurrentTimezone)} hours behind you`;
   }
