@@ -54,7 +54,7 @@ function AddCityForm({
   onSubmit: (v: ClockDisplay) => void;
 }) {
   return (
-    <div className="bg-stone-200 py-4 rounded-xl flex flex-col justify-center items-center border-2 border-solid">
+    <div className="bg-stone-200/80 py-4 rounded-xl flex flex-col justify-center items-center border-2 border-solid">
       <form
         className="w-5/6"
         onSubmit={(e) => {
