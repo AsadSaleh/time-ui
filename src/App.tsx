@@ -28,8 +28,11 @@ function App() {
   });
 
   return (
-    <div className="bg-macos-monterey bg-cover min-h-screen p-4">
+    <div className="bg-macos-monterey bg-cover min-h-screen p-4 pb-10">
+      {/* Current city */}
       <CurrentCityCard />
+
+      {/* Cities grid */}
       {cities.length === 0 ? (
         <div className="grid mt-14 grid-cols-1 gap-2 place-content-center">
           <AddCityCard
@@ -59,6 +62,18 @@ function App() {
           />
         </div>
       )}
+
+      {/* Credit to myself */}
+      <footer className="fixed right-2 bottom-2">
+        <a
+          href="https://twitter.com/asaduala"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-transparent/10 hover:bg-transparent/20 transition-all p-1 rounded-md text-xs"
+        >
+          By As&apos;ad Ghanim
+        </a>
+      </footer>
     </div>
   );
 }
