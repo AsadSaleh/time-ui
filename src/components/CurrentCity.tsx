@@ -16,7 +16,7 @@ export default function CurrentCityCard() {
           hour12: false,
         })}
       </p>
-      <p className="font-thin text-lg">Timezone: {timeZone}</p>
+      <p className="font-normal text-lg text-center">Timezone: {timeZone}</p>
     </div>
   );
 }

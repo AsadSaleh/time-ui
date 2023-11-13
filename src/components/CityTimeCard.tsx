@@ -39,7 +39,7 @@ export default function CityTimeCard(props: CityTimeCardProps) {
 
       {clock && <TickingClock timezone={props.location} />}
 
-      <p className="font-thin">Timezone: {abbreviation}</p>
+      <p className="text-center">Timezone: {abbreviation}</p>
       <p className="text-center mt-4 text-black/60">{offsetText}</p>
     </div>
   );
@@ -52,7 +52,7 @@ function TickingClock({ timezone }: { timezone: string }) {
   const date = new Date();
 
   return (
-    <p className="text-2xl md:text-3xl lg:text-4xl xl:text-6xl mt-4 font-mono italic">
+    <p className="text-2xl md:text-3xl lg:text-4xl xl:text-6xl mt-4 font-mono italic text-center">
       {date.toLocaleTimeString("en-US", {
         timeZone: timezone,
         hour12: true,
