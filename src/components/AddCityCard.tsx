@@ -104,7 +104,7 @@ function AddCityForm({
             Cancel
           </button>
           <button
-            className="px-8 py-2 rounded-xl bg-stone-500 hover:bg-stone-600 active:bg-stone-700 focus:outline-none focus:ring focus:ring-stone-300 text-stone-100"
+            className="px-8 py-2 rounded-xl bg-black active:scale-95 transition-all focus:outline-none focus:ring focus:ring-stone-300 text-stone-100"
             type="submit"
           >
             Add
