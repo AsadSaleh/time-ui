@@ -3,15 +3,27 @@ import useGlobalClock from "../hooks/useGlobalClock";
 import TrashIcon from "../icons/Trash";
 import { getTimezoneTime } from "../api";
 import { fromUnderscoreToPascal, getCityFromTzName } from "../helper";
+import EditIcon from "../icons/Edit";
+import { useState } from "react";
+import { AddCityForm } from "./AddCityCard";
+import { ClockDisplay } from "../model/clockDisplay";
 
 interface CityTimeCardProps {
+  id: string;
   location: string;
   label?: string;
   onDelete?: () => void;
+  onEdit?: (id: string, location: string, label?: string) => void;
 }
 
-export default function CityTimeCard(props: CityTimeCardProps) {
-  const { location } = props;
+export default function CityTimeCard({
+  location,
+  id,
+  label,
+  onDelete,
+  onEdit,
+}: CityTimeCardProps) {
+  const [isEditing, setIsEditing] = useState(false);
 
   const timeQuery = useQuery({
     queryKey: ["time", "detail", location],
@@ -47,19 +59,42 @@ export default function CityTimeCard(props: CityTimeCardProps) {
     offsetFromUtc >= 0 ? `+${offsetFromUtc}` : offsetFromUtc
   }`;
 
+  if (isEditing) {
+    return (
+      <AddCityForm
+        initialValue={{ id, location, label }}
+        onCancel={() => {
+          setIsEditing(false);
+        }}
+        onSubmit={(v: ClockDisplay) => {
+          onEdit?.(id, v.location, v.label);
+          setIsEditing(false);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="group bg-stone-300 rounded-xl flex px-4 flex-col justify-center items-center py-6 relative bg-white/40 backdrop-blur">
       <button
         type="button"
-        onClick={() => props.onDelete?.()}
+        onClick={() => onDelete?.()}
         className="bg-stone-100/40 hover:bg-stone-100 transition-all ease-in-out group-hover:block absolute hidden right-2 top-2 cursor-pointer p-1 rounded-lg"
       >
         <TrashIcon className="text-red-200" />
       </button>
-      <h4 className="text-3xl">{formattedCity}</h4>
-      <p className="text-lg italic">{props.label}</p>
 
-      {clock && <TickingClock timezone={props.location} />}
+      <button
+        type="button"
+        onClick={() => setIsEditing(true)}
+        className="p-1 absolute hidden group-hover:block left-2 top-2 rounded-lg text-slate-600 cursor-pointer bg-stone-100/40 hover:bg-stone-100 transition-all ease-in-out"
+      >
+        <EditIcon />
+      </button>
+      <h4 className="text-3xl">{formattedCity}</h4>
+      <p className="text-lg italic">{label}</p>
+
+      {clock && <TickingClock timezone={location} />}
 
       <p className="text-center mt-1">
         Timezone: {abbreviation} ({timezoneUtcOffsetText})

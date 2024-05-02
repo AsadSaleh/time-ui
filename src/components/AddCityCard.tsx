@@ -34,12 +34,14 @@ export default function AddCityCard({
   );
 }
 
-function AddCityForm({
+export function AddCityForm({
   onCancel,
   onSubmit,
+  initialValue,
 }: {
   onCancel: () => void;
   onSubmit: (v: ClockDisplay) => void;
+  initialValue?: ClockDisplay;
 }) {
   const timezonesQuery = useQuery({
     queryKey: ["time", "all"],
@@ -57,10 +59,14 @@ function AddCityForm({
             label: string;
             location: string;
           };
-          onSubmit({
-            id: uuidv4(),
-            ...formObj,
-          });
+
+          let payload: ClockDisplay;
+          if (initialValue) {
+            payload = { id: initialValue.id, ...formObj };
+          } else {
+            payload = { id: uuidv4(), ...formObj };
+          }
+          onSubmit(payload);
         }}
       >
         <p className="block text-sm font-medium text-slate-700">Add City</p>
@@ -68,6 +74,7 @@ function AddCityForm({
           <select
             name="location"
             required
+            defaultValue={initialValue?.location}
             className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
           focus:outline-none focus:border-stone-500 focus:ring-1 focus:ring-stone-600
         disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
@@ -88,6 +95,7 @@ function AddCityForm({
             name="label"
             maxLength={20}
             placeholder="Add a label (optional)"
+            defaultValue={initialValue?.label}
             className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
       focus:outline-none focus:border-stone-500 focus:ring-1 focus:ring-stone-600
       disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
@@ -107,7 +115,7 @@ function AddCityForm({
             className="px-8 py-2 rounded-xl bg-black active:scale-95 transition-all focus:outline-none focus:ring focus:ring-stone-300 text-stone-100"
             type="submit"
           >
-            Add
+            {initialValue ? "Update" : "Add"}
           </button>
         </div>
       </form>

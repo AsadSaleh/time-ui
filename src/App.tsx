@@ -46,13 +46,25 @@ function App() {
           {cities.map((city) => (
             <CityTimeCard
               key={city.id}
+              id={city.id}
               location={city.location}
               label={city.label}
-              onDelete={() =>
+              onDelete={() => {
+                const propmt = window.confirm(
+                  "Are you sure you want to delete this city?"
+                );
+                if (!propmt) return;
                 setCities((prevCities) =>
                   prevCities.filter((pCity) => pCity.id !== city.id)
-                )
-              }
+                );
+              }}
+              onEdit={(id, location, label = "") => {
+                setCities((prevCities) =>
+                  prevCities.map((pCity) =>
+                    pCity.id === id ? { ...pCity, location, label } : pCity
+                  )
+                );
+              }}
             />
           ))}
           <AddCityCard

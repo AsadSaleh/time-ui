@@ -21,7 +21,6 @@ export async function getTimezones(): Promise<
     return { error: "Failed to fetch", data: null };
   }
   const json = await res.json();
-  console.log("ASAD TEST: ", Array.isArray(json));
   return { error: null, data: json };
 }
 
