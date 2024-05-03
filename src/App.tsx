@@ -68,7 +68,7 @@ export default function App() {
       {/* Credit to myself */}
       <footer className="fixed right-2 bottom-2">
         <a
-          href="https://twitter.com/asaduala"
+          href="https://asadghanim.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-transparent/10 hover:bg-transparent/20 transition-all p-1 rounded-md text-xs"
