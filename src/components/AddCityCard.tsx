@@ -69,7 +69,9 @@ export function AddCityForm({
           onSubmit(payload);
         }}
       >
-        <p className="block text-sm font-medium text-slate-700">Add City</p>
+        <p className="block text-sm font-medium text-slate-700">
+          {initialValue ? "Edit detail" : "Add city"}
+        </p>
         <div className="mt-2">
           <select
             name="location"
