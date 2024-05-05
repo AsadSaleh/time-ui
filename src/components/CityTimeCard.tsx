@@ -75,7 +75,7 @@ export default function CityTimeCard({
   }
 
   return (
-    <div className="group bg-stone-300 rounded-xl flex px-4 flex-col justify-center items-center py-6 relative bg-white/40 backdrop-blur">
+    <div className="group bg-stone-300 rounded-xl flex px-2 md:px-4 flex-col justify-center items-center py-6 relative bg-white/40 backdrop-blur">
       <button
         type="button"
         onClick={() => onDelete?.()}
@@ -91,15 +91,19 @@ export default function CityTimeCard({
       >
         <EditIcon />
       </button>
-      <h4 className="text-3xl">{formattedCity}</h4>
+      <h4 className="text-xl lg:text-3xl">{formattedCity}</h4>
       <p className="text-lg italic">{label}</p>
 
       {clock && <TickingClock timezone={location} />}
 
-      <p className="text-center mt-1">
-        Timezone: {abbreviation} ({timezoneUtcOffsetText})
+      <p className="text-sm lg:text-base text-center mt-1">
+        <span className="hidden lg:inline">Timezone: {abbreviation} </span>
+        &nbsp;
+        <span>({timezoneUtcOffsetText})</span>
       </p>
-      <p className="text-center mt-4 text-black/60">{offsetText}</p>
+      <p className="text-sm lg:text-base text-center mt-2 lg:mt-4 text-black/60">
+        {offsetText}
+      </p>
     </div>
   );
 }
@@ -112,7 +116,7 @@ function TickingClock({ timezone }: { timezone: string }) {
   const date = new Date();
 
   return (
-    <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl mt-4 font-mono italic text-center">
+    <p className="text-lg md:text-3xl lg:text-4xl mt-2 lg:mt-4 font-mono italic text-center">
       {date.toLocaleTimeString("en-US", {
         timeZone: timezone,
         hour12: true,

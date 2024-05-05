@@ -28,12 +28,12 @@ export default function App() {
   });
 
   return (
-    <main className="bg-macos-monterey bg-cover min-h-screen p-4 pb-10">
+    <main className="bg-macos-monterey bg-cover min-h-screen p-2 md:p-4 pb-10">
       {/* Current city */}
       <CurrentCityCard />
 
       {/* Cities grid */}
-      <div className="grid mt-2 md:mt-3 lg:mt-4 grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 place-content-center">
+      <div className="grid mt-2 md:mt-3 lg:mt-4 grid-cols-2 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 place-content-center">
         {cities.map((city) => (
           <CityTimeCard
             key={city.id}
