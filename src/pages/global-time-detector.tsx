@@ -4,13 +4,29 @@ import {
   formatDuration,
   intervalToDuration,
 } from "date-fns";
-import { useState } from "react";
 import { GTD_TimezoneStaticInfo } from "../model/timezoneTime";
 import CloseIcon from "../icons/ClosIcon";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+type GTDZustandStore = {
+  text: string;
+  setText: (text: string) => void;
+};
+
+const gtdStore = create(
+  persist<GTDZustandStore>(
+    (set) => ({
+      text: "",
+      setText: (text) => set({ text }),
+    }),
+    { name: "gtd-store" },
+  ),
+);
 
 export default function GlobalTimeDetector() {
   return (
-    <main className="flex min-h-screen flex-col items-center bg-slate-300 p-4 pb-10 pt-10 md:pt-32">
+    <main className="flex min-h-screen flex-col items-center p-4 pb-10 pt-10 md:pt-32">
       <section className="text-center">
         <h1 className="text-2xl md:text-5xl">Global Time Detector</h1>
         <p className="mt-2 text-lg text-slate-700">
@@ -25,13 +41,13 @@ export default function GlobalTimeDetector() {
 }
 
 function TimeCalculator() {
-  const [time, setTime] = useState("");
+  const { text: time, setText: setTime } = gtdStore();
 
   return (
     <section>
       <div className="relative">
         <input
-          className="w-full rounded-xl border border-slate-300 p-4"
+          className="w-full rounded-xl border-4 border-slate-300 bg-white/40 p-4 backdrop-blur-md placeholder:tracking-widest placeholder:text-slate-700"
           value={time}
           onChange={(e) => setTime(e.target.value)}
           placeholder="Input your datetime here..."
@@ -121,14 +137,10 @@ function Result({ time }: { time: string }) {
 
   return (
     <div className="mt-6">
-      <p className="text-2xl font-bold text-green-700">Time Detected!</p>
-
-      {/* The time with it's detail */}
-      <h4 className="mt-8 text-xl">Time information</h4>
-
-      <div className="mt-2 rounded-xl border-4 bg-white/20 p-4">
+      <div className="mt-2 rounded-xl bg-white/20 p-4 backdrop-blur-md">
+        <p className="text-2xl font-bold">Time Detected!</p>
         {timezoneInfo?.timezone ? (
-          <p>
+          <p className="mt-4">
             The time is in&nbsp;
             <span className="font-bold">
               {timezoneInfo?.timezone} ({timezoneInfo?.abbreviation})
@@ -154,7 +166,7 @@ function Result({ time }: { time: string }) {
       {/* In my local time */}
       <h4 className="mt-8 text-xl">Time information in your local time:</h4>
 
-      <div className="mt-2 rounded-xl border-4 bg-white/20 p-4">
+      <div className="mt-2 rounded-xl bg-white/20 p-4 backdrop-blur-lg">
         <p>
           Your timezone:{" "}
           <span className="font-bold">
@@ -170,7 +182,7 @@ function Result({ time }: { time: string }) {
 
         {/* Relative to me */}
         <div className="mt-4">
-          <p className="text-slate-500">Relative to you:</p>
+          <p className="">Relative to you:</p>
           <p className="text-2xl font-bold">
             {upperCaseFirstLetter(distanceFromNow)}
           </p>
