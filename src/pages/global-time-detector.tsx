@@ -26,7 +26,7 @@ const gtdStore = create(
 
 export default function GlobalTimeDetector() {
   return (
-    <main className="flex flex-col items-center p-2 pb-10 pt-10 md:pt-32">
+    <main className="flex flex-col items-center p-2 pb-10 pt-10 md:pt-12">
       <section className="text-center">
         <h1 className="text-2xl md:text-5xl">Global Time Detector</h1>
         <p className="mt-2 text-lg text-slate-700">
