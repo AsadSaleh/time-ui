@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "macos-monterey": "url(../public/macos-monterey.jpg)",
+        "macos-monterey": "url(/macos-monterey.jpg)",
       },
     },
   },
