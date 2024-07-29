@@ -2,7 +2,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ClockDisplay } from "../model/clockDisplay";
 import { useQuery } from "@tanstack/react-query";
-import { getTimezones } from "../api";
+import { getTimezones } from "../services/timezoneApi";
 import { getFormattedTzName } from "../helper";
 
 export default function AddCityCard({
@@ -25,9 +25,9 @@ export default function AddCityCard({
   return (
     <div
       onClick={() => setFormMode(true)}
-      className="bg-stone-200/40 hover:bg-stone-200/80 py-10 transition-all ease-in-out backdrop-blur rounded-xl flex flex-col justify-center items-center border-stone-100 border-2 border-solid cursor-pointer"
+      className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-solid border-stone-100 bg-stone-200/40 py-10 backdrop-blur transition-all ease-in-out hover:bg-stone-200/80"
     >
-      <p className="text-3xl leading-3 ">+</p>
+      <p className="text-3xl leading-3">+</p>
       <div className="h-2" />
       <p className="text-sm italic">Add City</p>
     </div>
@@ -49,7 +49,7 @@ export function AddCityForm({
   });
 
   return (
-    <div className="bg-stone-200/80 py-4 rounded-xl flex flex-col justify-center items-center border-2 border-solid">
+    <div className="flex flex-col items-center justify-center rounded-xl border-2 border-solid bg-stone-200/80 py-4">
       <form
         className="w-5/6"
         onSubmit={(e) => {
@@ -77,9 +77,7 @@ export function AddCityForm({
             name="location"
             required
             defaultValue={initialValue?.location}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-          focus:outline-none focus:border-stone-500 focus:ring-1 focus:ring-stone-600
-        disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+            className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder-slate-400 shadow-sm focus:border-stone-500 focus:outline-none focus:ring-1 focus:ring-stone-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-none"
           >
             <option value={""}>Choose a city</option>
             {timezonesQuery.data?.data?.map((key) => {
@@ -98,23 +96,20 @@ export function AddCityForm({
             maxLength={20}
             placeholder="Add a label (optional)"
             defaultValue={initialValue?.label}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-      focus:outline-none focus:border-stone-500 focus:ring-1 focus:ring-stone-600
-      disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-    "
+            className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder-slate-400 shadow-sm focus:border-stone-500 focus:outline-none focus:ring-1 focus:ring-stone-600 disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:shadow-none"
           />
         </div>
 
-        <div className="flex flex-row justify-between items-center gap-2  mt-4 ">
+        <div className="mt-4 flex flex-row items-center justify-between gap-2">
           <button
             type="button"
             onClick={() => onCancel()}
-            className="hover:text-black text-stone-500"
+            className="text-stone-500 hover:text-black"
           >
             Cancel
           </button>
           <button
-            className="px-8 py-2 rounded-xl bg-black active:scale-95 transition-all focus:outline-none focus:ring focus:ring-stone-300 text-stone-100"
+            className="rounded-xl bg-black px-8 py-2 text-stone-100 transition-all focus:outline-none focus:ring focus:ring-stone-300 active:scale-95"
             type="submit"
           >
             {initialValue ? "Update" : "Add"}

@@ -1,34 +1,30 @@
-# Welcome to Timezone-UI
+# React + TypeScript + Vite
 
-This project was created by As'ad and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## To Run the app locally, you'll need to:
+Currently, two official plugins are available:
 
-1. clone the repo
-2. run `npm install`
-3. run `npm start`
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-The app will run in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Expanding the ESLint configuration
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-## To run the test:
+- Configure the top-level `parserOptions` property like this:
 
-### `npm test`
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project: ["./tsconfig.json", "./tsconfig.node.json", "./tsconfig.app.json"],
+    tsconfigRootDir: __dirname,
+  },
+};
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-## To build and serve the production ready app, you'll need to:
-
-1. run `npm run build`
-2. run `npm install -g serve`
-3. run `serve -s build`
-
-It will builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The last command shown above will serve your static site on the port 3000.
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
