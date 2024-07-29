@@ -2,7 +2,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "macos-monterey": "url(../public/macos-monterey.jpg)",
+      },
+    },
   },
   plugins: [],
 };
