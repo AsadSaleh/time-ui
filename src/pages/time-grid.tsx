@@ -57,7 +57,7 @@ export default function TimeGrid() {
   });
 
   return (
-    <main className="min-h-screen bg-cover p-2 pb-10 md:p-4">
+    <main className="p-2">
       <CurrentCityCard />
 
       <div className="mt-2 grid grid-cols-2 place-content-center gap-2 md:mt-3 md:grid-cols-2 md:gap-3 lg:mt-4 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4">
