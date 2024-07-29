@@ -27,7 +27,7 @@ export default function RootApp() {
             className="rounded-lg bg-slate-600/10 px-4 py-1 transition active:scale-90 data-[active=true]:bg-slate-600/30"
             onClick={() => setRoute("detector")}
           >
-            Detectors
+            Detector
           </button>
         </div>
         {route === "time-grid" ? (
