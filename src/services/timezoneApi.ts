@@ -1,4 +1,4 @@
-import { TimezoneTime } from "./model/timezoneTime";
+import { TimezoneTime } from "../model/timezoneTime";
 
 type ErrorResponse = {
   error: string;
@@ -28,7 +28,7 @@ export async function getTimezones(): Promise<
  * Fetch the "time" detail of a single timezone.
  */
 export async function getTimezoneTime(
-  timezone: string
+  timezone: string,
 ): Promise<ErrorResponse | DataResponse<TimezoneTime>> {
   const res = await fetch(`https://worldtimeapi.org/api/timezone/${timezone}`);
   if (!res.ok) {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ClockDisplay } from "../model/clockDisplay";
 import { useQuery } from "@tanstack/react-query";
-import { getTimezones } from "../api";
+import { getTimezones } from "../services/timezoneApi";
 import { getFormattedTzName } from "../helper";
 
 export default function AddCityCard({

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useGlobalClock from "../hooks/useGlobalClock";
 import TrashIcon from "../icons/Trash";
-import { getTimezoneTime } from "../api";
+import { getTimezoneTime } from "../services/timezoneApi";
 import { fromUnderscoreToPascal, getCityFromTzName } from "../helper";
 import EditIcon from "../icons/Edit";
 import { useState } from "react";
@@ -75,11 +75,11 @@ export default function CityTimeCard({
   }
 
   return (
-    <div className="group bg-stone-300 rounded-xl flex px-2 md:px-4 flex-col justify-center items-center py-6 relative bg-white/40 backdrop-blur">
+    <div className="group relative flex flex-col items-center justify-center rounded-xl bg-stone-300 bg-white/40 px-2 py-6 backdrop-blur md:px-4">
       <button
         type="button"
         onClick={() => onDelete?.()}
-        className="bg-stone-100/40 hover:bg-stone-100 transition-all ease-in-out group-hover:block absolute hidden right-2 top-2 cursor-pointer p-1 rounded-lg"
+        className="absolute right-2 top-2 hidden cursor-pointer rounded-lg bg-stone-100/40 p-1 transition-all ease-in-out hover:bg-stone-100 group-hover:block"
       >
         <TrashIcon className="text-red-200" />
       </button>
@@ -87,7 +87,7 @@ export default function CityTimeCard({
       <button
         type="button"
         onClick={() => setIsEditing(true)}
-        className="p-1 absolute hidden group-hover:block left-2 top-2 rounded-lg text-slate-600 cursor-pointer bg-stone-100/40 hover:bg-stone-100 transition-all ease-in-out"
+        className="absolute left-2 top-2 hidden cursor-pointer rounded-lg bg-stone-100/40 p-1 text-slate-600 transition-all ease-in-out hover:bg-stone-100 group-hover:block"
       >
         <EditIcon />
       </button>
@@ -96,12 +96,12 @@ export default function CityTimeCard({
 
       {clock && <TickingClock timezone={location} />}
 
-      <p className="text-sm lg:text-base text-center mt-1">
+      <p className="mt-1 text-center text-sm lg:text-base">
         <span className="hidden lg:inline">Timezone: {abbreviation} </span>
         &nbsp;
         <span>({timezoneUtcOffsetText})</span>
       </p>
-      <p className="text-sm lg:text-base text-center mt-2 lg:mt-4 text-black/60">
+      <p className="mt-2 text-center text-sm text-black/60 lg:mt-4 lg:text-base">
         {offsetText}
       </p>
     </div>
@@ -116,7 +116,7 @@ function TickingClock({ timezone }: { timezone: string }) {
   const date = new Date();
 
   return (
-    <p className="text-lg md:text-3xl lg:text-4xl mt-2 lg:mt-4 font-mono italic text-center">
+    <p className="mt-2 text-center font-mono text-lg italic md:text-3xl lg:mt-4 lg:text-4xl">
       {date.toLocaleTimeString("en-US", {
         timeZone: timezone,
         hour12: true,
