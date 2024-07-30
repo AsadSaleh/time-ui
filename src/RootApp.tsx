@@ -42,11 +42,6 @@ export default function RootApp() {
             Detector
           </button>
         </div>
-        {/* {route === "time-grid" ? (
-          <TimeGrid />
-        ) : route === "detector" ? (
-          <GlobalTimeDetector />
-        ) : null} */}
         <Router routes={routes} onRouteChange={setCurrentPath} />
       </div>
       <ReactQueryDevtools initialIsOpen={false} />
