@@ -5,7 +5,7 @@ import { getTimezoneTime } from "../services/timezoneApi";
 import { fromUnderscoreToPascal, getCityFromTzName } from "../helper";
 import EditIcon from "../icons/Edit";
 import { useState } from "react";
-import { CityForm } from "./AddCityCard";
+import CityForm from "./CityForm";
 import { ClockDisplay } from "../model/clockDisplay";
 
 interface CityTimeCardProps {
