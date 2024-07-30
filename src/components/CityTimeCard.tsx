@@ -5,7 +5,7 @@ import { getTimezoneTime } from "../services/timezoneApi";
 import { fromUnderscoreToPascal, getCityFromTzName } from "../helper";
 import EditIcon from "../icons/Edit";
 import { useState } from "react";
-import { AddCityForm } from "./AddCityCard";
+import { CityForm } from "./AddCityCard";
 import { ClockDisplay } from "../model/clockDisplay";
 
 interface CityTimeCardProps {
@@ -61,7 +61,7 @@ export default function CityTimeCard({
 
   if (isEditing) {
     return (
-      <AddCityForm
+      <CityForm
         initialValue={{ id, location, label }}
         onCancel={() => {
           setIsEditing(false);
